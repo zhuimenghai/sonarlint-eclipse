@@ -44,8 +44,15 @@ public class BuildWrapperJsonFactoryTest {
   @Test
   public void test() throws IOException, URISyntaxException {
     Map<String, IScannerInfo> info = new HashMap<>();
-    info.put("file1", fileInfo);
-    info.put("file2", fileInfo);
+    info.put(
+      "path/to/file1",
+      new ScannerInfo(
+        new String[] {"/path/to/include1", "/path/to/include2"},
+        ImmutableMap.of("MACRO1", "V1", "MACRO2", "V2")));
+    info.put("\\path\\to\\file2",
+      new ScannerInfo(
+        new String[] {"path\\to\\include1", "\\path\\to\\include2", "\\path\\to\\include3"},
+        ImmutableMap.of("MACRO1", "V1", "MACRO2", "V2", "MACRO3", "V3")));
 
     String json = writer.create(info, "/path/to/projectBaseDir");
     assertThat(json).isEqualTo(loadExpected());
@@ -57,20 +64,25 @@ public class BuildWrapperJsonFactoryTest {
     return str.replace("\n", "").replace("\r", "").replace(" ", "");
   }
 
-  private IScannerInfo fileInfo = new IScannerInfo() {
+  private static class ScannerInfo implements IScannerInfo {
+
+    private final String[] includes;
+    private final Map<String, String> symbols;
+
+    public ScannerInfo(String[] includes, Map<String, String> symbols) {
+      this.includes = includes;
+      this.symbols = symbols;
+    }
 
     @Override
     public String[] getIncludePaths() {
-      return new String[] {"/path/to/include1", "/path/to/include2"};
+      return includes;
     }
 
     @Override
     public Map<String, String> getDefinedSymbols() {
-      Map<String, String> defines = new HashMap<>();
-      defines.put("__STDC__", "1");
-      defines.put("unix", "1");
-      return defines;
+      return symbols;
     }
-  };
+  }
 
 }
