@@ -1,4 +1,4 @@
-SonarLint for Eclipse (parent)
+SonarLint for Eclipse
 Copyright (C) 2015-2017 SonarSource SA
 mailto:info AT sonarsource DOT com
 
