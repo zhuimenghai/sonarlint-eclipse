@@ -37,6 +37,7 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IMarkerResolution2;
+import org.eclipse.ui.IMarkerResolutionRelevance;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
@@ -49,7 +50,7 @@ import org.sonarlint.eclipse.core.internal.markers.MarkerUtils.ExtraPosition;
 import org.sonarlint.eclipse.ui.internal.SonarLintImages;
 import org.sonarlint.eclipse.ui.internal.views.locations.IssueLocationsView;
 
-public class ShowIssueFlowsMarkerResolver implements IMarkerResolution2 {
+public class ShowIssueFlowsMarkerResolver implements IMarkerResolution2, IMarkerResolutionRelevance {
 
   public static final String ISSUE_FLOW_ANNOTATION_TYPE = "org.sonarlint.eclipse.issueFlowAnnotationType";
   private final IMarker marker;
@@ -186,5 +187,10 @@ public class ShowIssueFlowsMarkerResolver implements IMarkerResolution2 {
   @Override
   public Image getImage() {
     return SonarLintImages.IMG_ISSUE;
+  }
+
+  @Override
+  public int getRelevanceForResolution() {
+    return Integer.MIN_VALUE + 1;
   }
 }
