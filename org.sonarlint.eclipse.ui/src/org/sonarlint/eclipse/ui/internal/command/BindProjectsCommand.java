@@ -31,7 +31,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.sonarlint.eclipse.core.internal.adapter.Adapters;
 import org.sonarlint.eclipse.core.resource.ISonarLintProject;
-import org.sonarlint.eclipse.ui.internal.bind.BindProjectsWizard;
+import org.sonarlint.eclipse.ui.internal.bind.wizard.ProjectBindingWizard;
 
 public class BindProjectsCommand extends AbstractHandler {
 
@@ -58,7 +58,7 @@ public class BindProjectsCommand extends AbstractHandler {
       }
     }
 
-    BindProjectsWizard wizard = new BindProjectsWizard(selectedProjects);
+    ProjectBindingWizard wizard = new ProjectBindingWizard(selectedProjects);
 
     final Display display = getDisplay();
     final WizardDialog dialog = new WizardDialog(display.getActiveShell(), wizard);

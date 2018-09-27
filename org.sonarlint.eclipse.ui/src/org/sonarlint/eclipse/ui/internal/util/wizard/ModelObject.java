@@ -17,5 +17,24 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-@javax.annotation.ParametersAreNonnullByDefault
-package org.sonarlint.eclipse.ui.internal.util;
+package org.sonarlint.eclipse.ui.internal.util.wizard;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
+public class ModelObject {
+  private final PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
+
+  public void addPropertyChangeListener(PropertyChangeListener listener) {
+    changeSupport.addPropertyChangeListener(listener);
+  }
+
+  public void removePropertyChangeListener(PropertyChangeListener listener) {
+    changeSupport.removePropertyChangeListener(listener);
+  }
+
+  protected void firePropertyChange(String propertyName, Object oldValue,
+    Object newValue) {
+    changeSupport.firePropertyChange(propertyName, oldValue, newValue);
+  }
+}

@@ -669,7 +669,7 @@
     <command
           description="Bind to a SonarQube project"
           id="org.sonarlint.eclipse.ui.internal.command.BindProjectsCommand"
-          name="Bind to a SonarQube project..."
+          name="Bind to a SonarQube or SonarCloud project..."
           categoryId="org.sonarlint.eclipse.ui.command.category">
     </command>
     <command
